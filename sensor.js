@@ -9,18 +9,18 @@ class Sensor{
         this.readings = [];
     }
 
-    update(roadBorders){
+    update(roadBorders, traffic){
         this.#castRays();
         this.readings = [];
 
         for(let i=0; i<this.rays.length; i++){
             this.readings.push(
-                this.#getReadings(this.rays[i], roadBorders)
+                this.#getReadings(this.rays[i], roadBorders, traffic)
             );
         } 
     }
 
-    #getReadings(ray, roadBorders){
+    #getReadings(ray, roadBorders, traffic){
         let touches = [];//count no. of touches to avoid collision
 
         for(let i=0; i<roadBorders.length; i++){
@@ -35,6 +35,24 @@ class Sensor{
                 touches.push(touch); //if any touch happed, add to the touches array
             }
         }
+
+        // rays will turn black if it touches the dummy car which will act as a sensor
+        for (let i=0; i<traffic.length; i++){
+            const poly = traffic[i].polygon;
+            for(let j=0; j<poly.length; j++){
+                const value = getIntersection(
+                    ray[0],
+                    ray[1],
+                    poly[j],
+                    poly[(j+1) % poly.length]
+                );
+                // checks if it touches the dummy car or not
+                if(value){
+                    touches.push(value);
+                }
+            }
+        }
+
         // if zero touches then no collision
         if (touches.length == 0){
             return null;

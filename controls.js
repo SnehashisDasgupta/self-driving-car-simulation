@@ -1,13 +1,20 @@
 // controls the car with keyboard arrows
 class Controls{
-    constructor(){
+    constructor(controlType){
         this.forward = false;
         this.reverse = false;
         this.left = false;
         this.right = false;
 
-        // private method
-        this.#addKeyboardListeners();
+        switch(controlType){
+            //we can control only the owner's car, not the other cars
+            case "KEYS":
+                this.#addKeyboardListeners(); // private method
+                break;
+            case "DUMMY":
+                this.forward = true;
+                break;
+        }
     }
 
     //private method (#) : can't be accessed from outside of 'Control' class
