@@ -5,15 +5,10 @@ body{
     text-align: center;
 }
 
-<<<<<<< HEAD
-#myCanvas{
-    background: lightgrey;
-=======
 #carCanvas{
     background: lightgrey;
 }
 
 #networkCanvas{
     background: black;
->>>>>>> f6797d9 (Added neural network)
 }

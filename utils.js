@@ -39,9 +39,6 @@ function polyIntersect(poly1, poly2){
         }
     }
     return false;
-<<<<<<< HEAD
-}
-=======
 }
 
 function getRGBA(value){
@@ -51,4 +48,3 @@ function getRGBA(value){
     const B=value>0?0:255;
     return "rgba("+R+","+G+","+B+","+alpha+")";
  }
->>>>>>> f6797d9 (Added neural network)
