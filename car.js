@@ -1,5 +1,9 @@
 class Car{
+<<<<<<< HEAD
     constructor(x, y, width, height, controlType, maxSpeed=3){
+=======
+    constructor(x, y, width, height, controlType, maxSpeed=4){
+>>>>>>> f6797d9 (Added neural network)
         this.x = x;
         this.y = y;
         this.width = width;
@@ -12,9 +16,20 @@ class Car{
         this.angle = 0;
         this.damaged = false;
 
+<<<<<<< HEAD
         // dummy cars will not have any sensors
         if (controlType != "DUMMY"){
             this.sensor = new Sensor(this);
+=======
+        this.useBrain = controlType == "AI";
+
+        // dummy cars will not have any sensors
+        if (controlType != "DUMMY"){
+            this.sensor = new Sensor(this);
+            this.brain = new NeuralNetwork(
+                [this.sensor.rayCount, 6, 4]
+            );
+>>>>>>> f6797d9 (Added neural network)
         }
         this.controls = new Controls(controlType); 
     }
@@ -29,6 +44,23 @@ class Car{
 
         if (this.sensor){
             this.sensor.update(roadBorders, traffic);
+<<<<<<< HEAD
+=======
+            // if obstacles are far away from car ,then return 0, if they are too close to the car, then return value
+            const offsets = this.sensor.readings.map(
+                s=> s==null?0:1-s.offset
+            );
+            const outputs = NeuralNetwork.feedForward(offsets, this.brain);
+            // console.log(outputs);
+
+            // car will run automitacally
+            if(this.useBrain){
+                this.controls.forward = outputs[0];
+                this.controls.reverse = outputs[1];
+                this.controls.left = outputs[2];
+                this.controls.right = outputs[3];
+            }
+>>>>>>> f6797d9 (Added neural network)
         }
     }
 
