@@ -150,7 +150,7 @@ class Car{
     }
 
     // draw the car with all the co-ordinates of car
-    draw(ctx, color){
+    draw(ctx, color, drawSensor=false){
         if (!this.polygon || this.polygon.length === 0) {
             return; // Return early if the polygon is not defined or has no points
         }
@@ -171,7 +171,7 @@ class Car{
         }
         ctx.fill();
 
-        if (this.sensor){
+        if (this.sensor && drawSensor){
             this.sensor.draw(ctx);
         }
     }
